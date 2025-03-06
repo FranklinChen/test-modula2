@@ -1,4 +1,4 @@
-name: Makefile CI
+name: CMake CI
 
 on:
   push:
@@ -17,8 +17,11 @@ jobs:
     - name: Get gm2
       run: sudo apt-get update && sudo apt-get install -yq gm2
 
-    - name: Build with gm2
-      run: make
+    - name: Configure with CMake
+      run: cmake -S . -B build
+
+    - name: Build with CMake
+      run: cmake --build build
 
     - name: Run
-      run: ./hello
+      run: ./build/hello

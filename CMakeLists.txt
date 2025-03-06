@@ -4,6 +4,14 @@ project(hello)
 
 find_program(GM2_COMPILER gm2)
 
-set_source_files_properties(hello.mod PROPERTIES LANGUAGE Modula-2)
+if(NOT GM2_COMPILER)
+  message(FATAL_ERROR "gm2 compiler not found in PATH")
+endif()
 
-add_executable(hello hello.mod)
+add_custom_command(
+  OUTPUT hello
+  COMMAND ${GM2_COMPILER} hello.mod -o hello
+  DEPENDS hello.mod
+)
+
+add_custom_target(hello ALL DEPENDS hello)

@@ -27,4 +27,4 @@ jobs:
       run: cmake --build build
 
     - name: Run
-      run: ./build/hello
+      run: build/hello

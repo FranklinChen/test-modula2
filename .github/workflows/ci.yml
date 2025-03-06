@@ -14,8 +14,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Get gcc
-      run: sudo apt-get update && sudo apt-get install -yq gcc
+    - name: Get gm2
+      run: sudo apt-get update && sudo apt-get install -yq gm2
+
+    - name: Set up CMake
+      uses: lukka/get-cmake@latest
 
     - name: Configure with CMake
       run: cmake -S . -B build

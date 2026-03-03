@@ -7,34 +7,34 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build-ubuntu:
-    runs-on: ubuntu-latest
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v6
-    - name: Install dependencies (Ubuntu)
+    - name: Install gm2 (Ubuntu)
+      if: runner.os == 'Linux'
       run: sudo apt-get update && sudo apt-get install -yq gm2
-    - name: Set up CMake
-      uses: lukka/get-cmake@latest
-    - name: Configure with CMake
-      run: cmake -S . -B build
-    - name: Build with CMake
-      run: cmake --build build
-    - name: Run
-      run: build/hello
-
-  build-macos:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v6
-    - name: Set up MacPorts
+    - name: Set up MacPorts (macOS)
+      if: runner.os == 'macOS'
       uses: melusina-org/setup-macports@v1
       with:
         parameters: 'macos.yaml'
     - name: Set up CMake
       uses: lukka/get-cmake@latest
-    - name: Configure with CMake
+    - name: Configure
       run: cmake -S . -B build
-    - name: Build with CMake
+    - name: Build
       run: cmake --build build
-    - name: Run
+    - name: Run hello
       run: build/hello
+    - name: Run stackdemo
+      run: build/stackdemo
+    - name: Run setdemo
+      run: build/setdemo
+    - name: Run procdemo
+      run: build/procdemo
+    - name: Run variantdemo
+      run: build/variantdemo

@@ -1,0 +1,12 @@
+DEFINITION MODULE Stack ;
+
+TYPE
+   Stack ; (* opaque type *)
+
+PROCEDURE Create () : Stack ;
+PROCEDURE Push (s: Stack; value: INTEGER) ;
+PROCEDURE Pop (s: Stack) : INTEGER ;
+PROCEDURE IsEmpty (s: Stack) : BOOLEAN ;
+PROCEDURE Destroy (VAR s: Stack) ;
+
+END Stack.
